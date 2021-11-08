@@ -162,7 +162,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 		if (this.currentInterceptorIndex == this.interceptorsAndDynamicMethodMatchers.size() - 1) {
 			return invokeJoinpoint();
 		}
-
+		//interceptorsAndDynamicMethodMatchers就是放入的chains，索引从0开始逐渐取出Interceptor
 		Object interceptorOrInterceptionAdvice =
 				this.interceptorsAndDynamicMethodMatchers.get(++this.currentInterceptorIndex);
 		if (interceptorOrInterceptionAdvice instanceof InterceptorAndDynamicMethodMatcher dm) {
@@ -175,6 +175,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 			else {
 				// Dynamic matching failed.
 				// Skip this interceptor and invoke the next in the chain.
+				//然后进行执行
 				return proceed();
 			}
 		}
